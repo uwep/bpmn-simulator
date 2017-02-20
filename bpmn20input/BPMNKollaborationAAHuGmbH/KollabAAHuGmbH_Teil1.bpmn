@@ -10,7 +10,7 @@
       <yaoqiang:pageFormat height="842.4" imageableHeight="832.4" imageableWidth="587.6" imageableX="5.0" imageableY="5.0" orientation="0" width="597.6"/>
       <yaoqiang:page background="#FFFFFF" horizontalCount="4" verticalCount="1"/>
     </extensionElements>
-    <participant id="_2" name="Participant" processRef="PROCESS_1">
+    <participant id="_2" name="Auftragsannamhe" processRef="PROCESS_1">
       <participantMultiplicity maximum="1" minimum="0"/>
     </participant>
   </collaboration>
@@ -250,7 +250,7 @@
       <bpmndi:BPMNShape bpmnElement="_2" id="Yaoqiang-_2" isExpanded="true" isHorizontal="true">
         <dc:Bounds height="652.0" width="1133.0" x="50.0" y="50.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="84.0" width="22.49" x="56.26" y="334.0"/>
+          <dc:Bounds height="133.0" width="22.49" x="56.26" y="309.5"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_6" id="Yaoqiang-_6" isExpanded="true" isHorizontal="true">
@@ -304,7 +304,7 @@
       <bpmndi:BPMNShape bpmnElement="_25" id="Yaoqiang-_25">
         <dc:Bounds height="32.0" width="32.0" x="737.3947368421053" y="340.99999999999994"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="32.96" width="66.0" x="720.39" y="374.44"/>
+          <dc:Bounds height="32.96" width="66.0" x="720.39" y="374.42"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_29" id="Yaoqiang-_29" isMarkerVisible="true">

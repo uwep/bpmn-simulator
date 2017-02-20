@@ -111,7 +111,9 @@ public abstract class AbstractXmlDefinition<E extends Diagram<?>>
 	protected static String getAttributeString(final Node node, final String name) {
 		final Node attributeNode = node.getAttributes().getNamedItem(name);
 		if (attributeNode == null) {
-			return null;
+//			return null;
+//			UweP 2017
+			return "";
 		}
 		return attributeNode.getNodeValue();
 	}

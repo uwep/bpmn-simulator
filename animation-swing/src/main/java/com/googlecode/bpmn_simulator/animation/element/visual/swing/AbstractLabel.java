@@ -41,7 +41,7 @@ public abstract class AbstractLabel
 
 	public AbstractLabel() {
 		super();
-		setFont(getFont().deriveFont(11.f));
+		setFont(getFont().deriveFont(8.f));
 	}
 
 	@Override

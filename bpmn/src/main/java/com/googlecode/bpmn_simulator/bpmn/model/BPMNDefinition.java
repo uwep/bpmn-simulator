@@ -173,6 +173,12 @@ public class BPMNDefinition<E extends BPMNDiagram<?>>
 				if (flowElement instanceof StartEvent) {
 					instantiatingElements.add(flowElement);
 				}
+				// UweP 2017
+				if (flowElement instanceof IntermediateCatchEvent) {
+					if (((IntermediateCatchEvent)flowElement).getEventDefinition() instanceof LinkEventDefinition)				
+						instantiatingElements.add(flowElement);
+				}
+				
 			}
 		}
 		return instantiatingElements;

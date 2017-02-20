@@ -73,6 +73,8 @@ public class StartButton
 			final StringBuilder text = new StringBuilder();
 			text.append(LogicalElements.getName(element));
 			text.append(" - ");
+			// UweP 2017
+			text.append(element);
 			final JMenuItem menuItem =  new JMenuItem(text.toString());
 			menuItem.addActionListener(new ActionListener() {
 				@Override

@@ -168,10 +168,19 @@ public class Presentation {
 		final Bounds bounds = Bounds.fromCenter(centerX, centerY, AbstractVisualElement.MARGIN);
 		final Shape shape = createStar(bounds, PENTAGON);
 		g.setPaint(Colors.forToken(token));
-		g.fill(shape);
+//		UweP 2017
+//		g.fill(shape);
+//		g.setStroke(TOKEN_STROKE);
+//		g.setPaint(Color.BLACK);
+//		g.draw(shape);
+		final Bounds head = Bounds.fromCenter(centerX, centerY - 5, 3);
+		final Bounds body = Bounds.fromCenter(centerX, centerY, 4);
+		fillOval(g, head);
+		fillOval(g, body);
 		g.setStroke(TOKEN_STROKE);
 		g.setPaint(Color.BLACK);
-		g.draw(shape);
+		drawOval(g, head);
+		drawOval(g, body);
 	}
 
 	public void drawTokens(final Graphics2D g, final Tokens tokens,

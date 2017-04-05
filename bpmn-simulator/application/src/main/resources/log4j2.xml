@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<filters>
+				<ThresholdFilter level="error" />
+			</filters>
+		    <PatternLayout pattern="%date{ABSOLUTE} [%thread] %level %logger{1} - %message%n" />
+		</Console>
+		<File name="File" fileName="error.log">
+			<filters>
+				<ThresholdFilter level="error" />
+			</filters>
+			<PatternLayout pattern="%date{DEFAULT} [%thread] %level %logger{1} %class{1.} - %message%n" />
+		</File>
+	</Appenders>
+	<Loggers>
+		<Root level="all">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="File" />
+		</Root>
+	</Loggers>
+</Configuration>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="9.2.0" expressionLanguage="http://www.w3.org/1999/XPath" id="sid-5fac5d7a-3e00-4b50-9d16-0dda4b2a3491" targetNamespace="http://www.signavio.com/bpmn20" typeLanguage="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+   <process id="sid-e6492886-6093-4bd0-aded-c5c53020386d" isClosed="false" isExecutable="false" processType="None">
+      <startEvent id="sid-02B82C93-B2EA-440B-8FD7-069B6350BB41" name="">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+         <outgoing>sid-3C928CD1-CDD0-4739-8F5C-1F3B194B3066</outgoing>
+      </startEvent>
+      <parallelGateway gatewayDirection="Diverging" id="sid-09AE6099-3209-4D8A-8D50-D26ECC31BFCB" name="">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+         <incoming>sid-3C928CD1-CDD0-4739-8F5C-1F3B194B3066</incoming>
+         <outgoing>sid-FBEABEC5-A684-44CE-8310-780B5AFD6E9D</outgoing>
+         <outgoing>sid-475F4BFB-4E58-463F-B9CC-363A5543912F</outgoing>
+      </parallelGateway>
+      <endEvent id="sid-853FE668-0107-4CFB-96BE-46CD574D5B4B" name="">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+         <incoming>sid-FBEABEC5-A684-44CE-8310-780B5AFD6E9D</incoming>
+         <incoming>sid-475F4BFB-4E58-463F-B9CC-363A5543912F</incoming>
+      </endEvent>
+      <sequenceFlow id="sid-3C928CD1-CDD0-4739-8F5C-1F3B194B3066" name="" sourceRef="sid-02B82C93-B2EA-440B-8FD7-069B6350BB41" targetRef="sid-09AE6099-3209-4D8A-8D50-D26ECC31BFCB"/>
+      <sequenceFlow id="sid-FBEABEC5-A684-44CE-8310-780B5AFD6E9D" name="" sourceRef="sid-09AE6099-3209-4D8A-8D50-D26ECC31BFCB" targetRef="sid-853FE668-0107-4CFB-96BE-46CD574D5B4B"/>
+      <sequenceFlow id="sid-475F4BFB-4E58-463F-B9CC-363A5543912F" name="" sourceRef="sid-09AE6099-3209-4D8A-8D50-D26ECC31BFCB" targetRef="sid-853FE668-0107-4CFB-96BE-46CD574D5B4B"/>
+   </process>
+   <bpmndi:BPMNDiagram id="sid-551f41bb-a22d-4e72-9e0a-8ae1048a3654">
+      <bpmndi:BPMNPlane bpmnElement="sid-e6492886-6093-4bd0-aded-c5c53020386d" id="sid-0488d133-7e39-4071-bbb0-961280200032">
+         <bpmndi:BPMNShape bpmnElement="sid-02B82C93-B2EA-440B-8FD7-069B6350BB41" id="sid-02B82C93-B2EA-440B-8FD7-069B6350BB41_gui">
+            <omgdc:Bounds height="30.0" width="30.0" x="105.0" y="150.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-09AE6099-3209-4D8A-8D50-D26ECC31BFCB" id="sid-09AE6099-3209-4D8A-8D50-D26ECC31BFCB_gui">
+            <omgdc:Bounds height="40.0" width="40.0" x="180.0" y="145.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-853FE668-0107-4CFB-96BE-46CD574D5B4B" id="sid-853FE668-0107-4CFB-96BE-46CD574D5B4B_gui">
+            <omgdc:Bounds height="28.0" width="28.0" x="265.0" y="151.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNEdge bpmnElement="sid-3C928CD1-CDD0-4739-8F5C-1F3B194B3066" id="sid-3C928CD1-CDD0-4739-8F5C-1F3B194B3066_gui">
+            <omgdi:waypoint x="135.0" y="165.09316770186336"/>
+            <omgdi:waypoint x="180.0" y="165.37267080745343"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="sid-FBEABEC5-A684-44CE-8310-780B5AFD6E9D" id="sid-FBEABEC5-A684-44CE-8310-780B5AFD6E9D_gui">
+            <omgdi:waypoint x="200.5" y="145.0"/>
+            <omgdi:waypoint x="200.5" y="125.0"/>
+            <omgdi:waypoint x="279.0" y="125.0"/>
+            <omgdi:waypoint x="279.0" y="151.0"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge bpmnElement="sid-475F4BFB-4E58-463F-B9CC-363A5543912F" id="sid-475F4BFB-4E58-463F-B9CC-363A5543912F_gui">
+            <omgdi:waypoint x="200.5" y="185.0"/>
+            <omgdi:waypoint x="200.5" y="204.0"/>
+            <omgdi:waypoint x="279.0" y="204.0"/>
+            <omgdi:waypoint x="279.0" y="179.0"/>
+         </bpmndi:BPMNEdge>
+      </bpmndi:BPMNPlane>
+   </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,31 @@
+<project name="SVG rasterization" default="rasterize" basedir=".">
+	<property environment="env" />
+	<property name="incscape-executable-path" value="${env.ProgramFiles}\Inkscape\inkscape.exe" />
+
+	<property name="destPath" location="./svg" />
+
+	<chainedmapper id="out">
+		<flattenmapper />
+		<globmapper from="*.svg" to="*.png" />
+		<globmapper from="*" to="${destPath}/*" />
+	</chainedmapper>
+
+	<target name="rasterize">
+		<mkdir dir="${destPath}" />
+		<apply executable="${incscape-executable-path}" failonerror="true">
+			<fileset dir="${basedir}">
+				<include name="**/*.svg"/>
+			</fileset>
+			<mapper refid="out" />
+			<arg value="businessrule.svg" />
+			<arg value="--export-png" />
+			<targetfile />
+			<arg value="--export-area-drawing" />
+			<arg value="--export-width" />
+			<arg value="24" />
+			<arg value="--export-height" />
+			<arg value="24" />
+		</apply>
+	</target>
+
+</project>

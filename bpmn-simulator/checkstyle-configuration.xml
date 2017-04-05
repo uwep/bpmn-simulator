@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC
+		"-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+		"http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+<module name="Checker">
+
+	<!-- <module name="StrictDuplicateCode" /> -->
+	<module name="Translation" />
+	<module name="NewlineAtEndOfFile">
+		<property name="fileExtensions" value="java,properties" />
+	</module>
+	<module name="RegexpSingleline">
+		<property name="format" value="^[^#].*[^\x00-\x7F]|^[^\x00-\x7F]" />
+		<property name="message" value="Line contains non-ASCII char." />
+		<property name="fileExtensions" value=".properties" />
+	</module>
+	<module name="RegexpHeader">
+		<property name="headerFile" value="${checkstyle.header.file}" />
+	</module>
+
+	<module name="TreeWalker">
+
+		<property name="tabWidth" value="4" />
+
+		<!-- BLOCK CHECKS -->
+		<module name="EmptyBlock" />
+		<module name="LeftCurly" />
+		<module name="NeedBraces" />
+		<module name="RightCurly" />
+		<module name="AvoidNestedBlocks" />
+
+		<!-- CLASS DESIGN -->
+		<module name="VisibilityModifier" />
+		<module name="FinalClass" />
+		<module name="InterfaceIsType" />
+		<module name="HideUtilityClassConstructor" />
+		<!-- <module name="DesignForExtension" /> -->
+		<module name="MutableException" />
+		<module name="InnerTypeLast" />
+
+		<!-- CODING -->
+		<module name="ArrayTrailingComma" />
+		<module name="CovariantEquals" />
+		<module name="EmptyStatement" />
+		<module name="EqualsAvoidNull" />
+		<module name="EqualsHashCode" />
+		<module name="FinalLocalVariable" />
+		<module name="HiddenField">
+			<property name="severity" value="warning" />
+		</module>
+		<!-- <module name="IllegalInstantiation" /> -->
+		<module name="IllegalToken">
+			<property name="tokens" value="LITERAL_NATIVE,POST_INC,POST_DEC" />
+		</module>
+		<module name="InnerAssignment" />
+		<module name="MagicNumber" />
+		<module name="MissingSwitchDefault" />
+		<module name="ModifiedControlVariable" />
+		<module name="RedundantThrows" />
+		<module name="SimplifyBooleanExpression" />
+		<module name="SimplifyBooleanReturn" />
+		<module name="StringLiteralEquality" />
+		<module name="NestedForDepth" />
+		<module name="NestedIfDepth">
+			<property name="max" value="3" />
+		</module>
+		<module name="NestedTryDepth" />
+		<module name="NoClone" />
+		<module name="NoFinalizer" />
+		<module name="SuperClone" />
+		<module name="SuperFinalize" />
+		<module name="IllegalCatch" />
+		<module name="IllegalThrows" />
+		<module name="PackageDeclaration" />
+		<module name="JUnitTestCase" />
+		<module name="ReturnCount">
+			<property name="max" value="3" />
+		</module>
+		<module name="IllegalType" />
+		<module name="DeclarationOrder" />
+		<module name="ParameterAssignment" />
+		<module name="ExplicitInitialization" />
+		<module name="DefaultComesLast" />
+		<!-- <module name="MissingCtor" /> -->
+		<module name="FallThrough" />
+		<module name="MultipleStringLiterals" />
+		<module name="MultipleVariableDeclarations" />
+		<!-- <module name="RequireThis" /> -->
+		<module name="UnnecessaryParentheses" />
+		<module name="OneStatementPerLine" />
+
+		<!-- IMPORTS -->
+		<module name="AvoidStarImport" />
+		<module name="IllegalImport" />
+		<module name="RedundantImport" />
+		<module name="UnusedImports" />
+		<module name="ImportOrder">
+			<property name="groups" value="java.,javax.,org.,com." />
+		</module>
+
+		<!-- METRICS -->
+		<module name="BooleanExpressionComplexity" />
+		<module name="ClassDataAbstractionCoupling" />
+		<module name="ClassFanOutComplexity" />
+		<module name="CyclomaticComplexity" />
+		<module name="NPathComplexity" />
+		<module name="JavaNCSS" />
+
+		<!-- MISC -->
+		<module name="UpperEll" />
+		<module name="ArrayTypeStyle" />
+		<module name="FinalParameters" />
+		<!-- <module name="Indentation" /> -->
+		<module name="TrailingComment">
+			<property name="legalComment" value="\$NON\-NLS\-\d+\$" />
+		</module>
+		<module name="OuterTypeFilename" />
+
+		<!-- MODIFIERS -->
+		<module name="ModifierOrder" />
+		<module name="RedundantModifier" />
+
+		<!-- NAMING CONVENTIONS -->
+		<module name="AbstractClassName" />
+		<module name="ClassTypeParameterName" />
+		<module name="ConstantName" />
+		<module name="LocalFinalVariableName" />
+		<module name="LocalVariableName" />
+		<module name="MemberName" />
+		<module name="MethodName" />
+		<module name="MethodTypeParameterName" />
+		<module name="PackageName" />
+		<module name="ParameterName" />
+		<module name="StaticVariableName" />
+		<module name="TypeName" />
+
+		<!-- REGEXP -->
+		<module name="RegexpSinglelineJava">
+			<property name="format" value="^\t* +\t*\S" />
+			<property name="message"
+				value="Line has leading space characters; indentation should be performed with tabs only." />
+			<property name="ignoreComments" value="true" />
+		</module>
+		<module name="RegexpSinglelineJava">
+			<property name="format" value="\s+$" />
+			<property name="message" value="Line has trailing spaces." />
+			<property name="ignoreComments" value="true" />
+		</module>
+		<module name="RegexpSinglelineJava">
+			<property name="format" value="[^\x00-\x7F]" />
+			<property name="message" value="Line contains non-ASCII char." />
+			<property name="ignoreComments" value="true" />
+		</module>
+		<module name="RegexpSinglelineJava">
+			<property name="format" value="System\.(out|err)\." />
+			<property name="message" value="System.out nor System.err should be used." />
+			<property name="ignoreComments" value="true" />
+		</module>
+		<module name="RegexpSinglelineJava">
+			<property name="format" value="\.printStackTrace\(" />
+			<property name="message" value="printStackTrace() should be used." />
+			<property name="ignoreComments" value="true" />
+		</module>
+
+		<!-- SIZE VIOLATIONS -->
+		<module name="ExecutableStatementCount" />
+		<module name="LineLength">
+			<property name="max" value="120" />
+			<property name="tabWidth" value="4" />
+		</module>
+		<module name="MethodLength" />
+		<module name="AnonInnerLength" />
+		<module name="ParameterNumber" />
+		<module name="OuterTypeNumber" />
+		<module name="MethodCount" />
+
+		<!-- WHITESPACE -->
+		<module name="GenericWhitespace" />
+		<module name="EmptyForInitializerPad" />
+		<module name="EmptyForIteratorPad" />
+		<module name="MethodParamPad" />
+		<module name="NoWhitespaceAfter" />
+		<module name="NoWhitespaceBefore" />
+		<module name="OperatorWrap" />
+		<module name="ParenPad" />
+		<module name="TypecastParenPad" />
+		<module name="WhitespaceAfter">
+			<property name="tokens" value="COMMA,SEMI" />
+		</module>
+		<module name="WhitespaceAround" />
+
+	</module>
+
+</module>

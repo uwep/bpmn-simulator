@@ -7,5 +7,3 @@
 target/
 
 log4j2-test.*
-/.DS_Store
-/bpmn20input/

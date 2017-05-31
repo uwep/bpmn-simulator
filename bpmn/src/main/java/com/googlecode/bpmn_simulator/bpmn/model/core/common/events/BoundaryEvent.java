@@ -18,11 +18,18 @@
  */
 package com.googlecode.bpmn_simulator.bpmn.model.core.common.events;
 
+import com.googlecode.bpmn_simulator.bpmn.model.core.common.FlowNode;
+import com.googlecode.bpmn_simulator.animation.ref.Reference;
+
+
 public final class BoundaryEvent
 		extends AbstractCatchEvent {
 
-	public BoundaryEvent(final String id, final String name) {
+	private Reference<FlowNode> attachedToRef;
+	
+	public BoundaryEvent(final String id, final String name, final Reference<FlowNode> attachedToRef) {
 		super(id, name);
+		this.attachedToRef = attachedToRef;
 	}
 
 }

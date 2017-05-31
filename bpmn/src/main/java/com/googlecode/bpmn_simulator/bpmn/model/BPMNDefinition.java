@@ -288,6 +288,10 @@ public class BPMNDefinition<E extends BPMNDiagram<?>>
 		return getAttributeIDREF(node, "targetRef", FlowNode.class); //$NON-NLS-1$
 	}
 
+	protected Reference<FlowNode> getAttachedToRefAttribute(final Node node) {
+		return getAttributeIDREF(node, "attachedToRef", FlowNode.class); //$NON-NLS-1$
+	}
+
 	protected Reference<SequenceFlow> getDefaultAttribute(final Node node) {
 		return new CastReference<>(new NamedReference<>(
 				elements, getAttributeString(node, "default")), SequenceFlow.class); //$NON-NLS-1$
@@ -518,7 +522,7 @@ public class BPMNDefinition<E extends BPMNDiagram<?>>
 			final FlowElementsContainer container) {
 		if (isElementNode(node, BPMN, "boundaryEvent")) { //$NON-NLS-1$
 			final BoundaryEvent event = new BoundaryEvent(getIdAttribute(node),
-					getNameAttribute(node));
+					getNameAttribute(node), getAttachedToRefAttribute(node));
 			readChildrenOfEvent(node, event);
 			container.addFlowElement(event);
 			registerElement(event);

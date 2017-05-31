@@ -42,7 +42,7 @@ public final class ApplicationInfo {
 			+ "See the License for the specific language governing permissions and\n" //$NON-NLS-1$
 			+ "limitations under the License."; //$NON-NLS-1$
 
-	private static final String NAME = "BPMN Simulator";  //$NON-NLS-1$
+	private static final String NAME = "BPMN2.0 Token Animation";  //$NON-NLS-1$
 
 	private static final URI WEBSITE = URI.create("http://code.google.com/p/bpmn-simulator/"); //$NON-NLS-1$
 

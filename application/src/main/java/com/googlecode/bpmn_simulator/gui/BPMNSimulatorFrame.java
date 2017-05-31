@@ -474,7 +474,10 @@ public class BPMNSimulatorFrame
 		});
 		definitionToolbar.add(openButton);
 
-		final JPopupMenu importMenu = new JPopupMenu(Messages.getString("Toolbar.import")); //$NON-NLS-1$
+/*
+ * Uwep 2017
+  		final JPopupMenu importMenu = new JPopupMenu(Messages.getString("Toolbar.import")); //$NON-NLS-1$
+ 
 		final JMenuItem importBonitaItem = new JMenuItem("Bonita");
 		importBonitaItem.addActionListener(new ActionListener() {
 			@Override
@@ -492,7 +495,7 @@ public class BPMNSimulatorFrame
 			}
 		});
 		definitionToolbar.add(importButton);
-
+*/
 		return definitionToolbar;
 	}
 

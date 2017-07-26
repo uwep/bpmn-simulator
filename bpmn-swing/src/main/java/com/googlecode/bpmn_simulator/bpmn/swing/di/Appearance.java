@@ -51,8 +51,12 @@ public class Appearance {
 	public static final String IMAGE_TERMINATE = "terminate.png"; //$NON-NLS-1$
 	public static final String IMAGE_LINK = "link.png"; //$NON-NLS-1$
 	public static final String IMAGE_LINK_INVERSE = "link_inverse.png"; //$NON-NLS-1$
-	public static final String IMAGE_MESSAGE = "send.png"; //$NON-NLS-1$
-	public static final String IMAGE_MESSAGE_INVERSE = "receive.png"; //$NON-NLS-1$
+	// UweP
+	// mixed up ???
+	public static final String IMAGE_MESSAGE = "receive.png"; //$NON-NLS-1$
+//	public static final String IMAGE_MESSAGE_INVERSE = "receive.png"; //$NON-NLS-1$
+//	public static final String IMAGE_MESSAGE = "send.png"; //$NON-NLS-1$
+	public static final String IMAGE_MESSAGE_INVERSE = "send.png"; //$NON-NLS-1$
 	public static final String IMAGE_SIGNAL = "signal.png"; //$NON-NLS-1$
 	public static final String IMAGE_SIGNAL_INVERSE = "signal_inverse.png"; //$NON-NLS-1$
 	public static final String IMAGE_ERROR = "error.png"; //$NON-NLS-1$

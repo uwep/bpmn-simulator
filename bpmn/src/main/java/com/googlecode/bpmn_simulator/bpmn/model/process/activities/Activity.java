@@ -20,6 +20,7 @@ package com.googlecode.bpmn_simulator.bpmn.model.process.activities;
 
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.DefaultSequenceFlowElement;
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.FlowNode;
+import com.googlecode.bpmn_simulator.bpmn.model.core.common.events.BoundaryEvent;
 
 public interface Activity
 		extends FlowNode, DefaultSequenceFlowElement {
@@ -30,4 +31,8 @@ public interface Activity
 
 	boolean isForCompensation();
 
+	BoundaryEvent getBounderyEvent();
+	
+	void setBoundaryEvent(BoundaryEvent boundaryEvent);
+	
 }

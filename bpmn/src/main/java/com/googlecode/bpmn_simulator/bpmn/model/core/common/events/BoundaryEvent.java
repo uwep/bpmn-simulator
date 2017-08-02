@@ -19,6 +19,7 @@
 package com.googlecode.bpmn_simulator.bpmn.model.core.common.events;
 
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.FlowNode;
+import com.googlecode.bpmn_simulator.bpmn.model.process.activities.AbstractActivity;
 import com.googlecode.bpmn_simulator.animation.ref.Reference;
 
 
@@ -30,6 +31,11 @@ public final class BoundaryEvent
 	public BoundaryEvent(final String id, final String name, final Reference<FlowNode> attachedToRef) {
 		super(id, name);
 		this.attachedToRef = attachedToRef;
+		if (attachedToRef.hasReference()) {
+			if (attachedToRef.getReferenced() instanceof AbstractActivity) {
+				AbstractActivity activity = (AbstractActivity)attachedToRef.getReferenced();
+				activity.setBoundaryEvent(this);
+			}
+		}
 	}
-
 }

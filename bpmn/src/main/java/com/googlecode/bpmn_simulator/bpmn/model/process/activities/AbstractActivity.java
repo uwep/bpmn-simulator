@@ -22,6 +22,7 @@ import com.googlecode.bpmn_simulator.animation.ref.Reference;
 import com.googlecode.bpmn_simulator.animation.token.Token;
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.AbstractFlowNode;
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.SequenceFlow;
+import com.googlecode.bpmn_simulator.bpmn.model.core.common.events.BoundaryEvent;
 
 public abstract class AbstractActivity
 		extends AbstractFlowNode
@@ -33,6 +34,8 @@ public abstract class AbstractActivity
 
 	private LoopCharacteristics loopCharacteristics;
 
+	private BoundaryEvent boundaryEventRef;
+	
 	public AbstractActivity(final String id, final String name, final boolean isForCompensation) {
 		super(id, name);
 		forCompensation = isForCompensation;
@@ -69,6 +72,16 @@ public abstract class AbstractActivity
 	@Override
 	protected void forwardToken(final Token token) {
 		copyTokenToOutgoing(token, token.getInstance(), false, this);
+	}
+
+	@Override
+	public BoundaryEvent getBounderyEvent() {
+		return this.boundaryEventRef;
+	}
+
+	@Override
+	public void setBoundaryEvent(BoundaryEvent boundaryEvent) {
+		this.boundaryEventRef = boundaryEvent;
 	}
 
 }

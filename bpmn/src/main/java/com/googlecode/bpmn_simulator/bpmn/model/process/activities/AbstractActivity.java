@@ -71,7 +71,10 @@ public abstract class AbstractActivity
 
 	@Override
 	protected void forwardToken(final Token token) {
-		copyTokenToOutgoing(token, token.getInstance(), false, this);
+		if (boundaryEventRef != null && boundaryEventRef.isCatched()) {
+			token.getInstance().createNewToken(boundaryEventRef, this);
+		} else
+			copyTokenToOutgoing(token, token.getInstance(), false, this);
 	}
 
 	@Override

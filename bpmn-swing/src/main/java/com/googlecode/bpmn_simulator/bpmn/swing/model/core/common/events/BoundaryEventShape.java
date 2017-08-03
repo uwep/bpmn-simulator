@@ -18,14 +18,63 @@
  */
 package com.googlecode.bpmn_simulator.bpmn.swing.model.core.common.events;
 
+import com.googlecode.bpmn_simulator.animation.element.visual.HorizontalPosition;
+import com.googlecode.bpmn_simulator.animation.element.visual.Point;
+import com.googlecode.bpmn_simulator.animation.element.visual.VerticalPosition;
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.events.BoundaryEvent;
+
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
 public class BoundaryEventShape
 		extends AbstractEventShape<BoundaryEvent> {
 
+	private JCheckBox checkBox;
+
 	public BoundaryEventShape(final BoundaryEvent element) {
 		super(element);
+	}
+
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#addNotify()
+	 */
+	@Override
+	public void addNotify() {
+		// TODO Auto-generated method stub
+		super.addNotify();
+		if (checkBox == null) {
+			createCheckbox();
+		}
+		updateCheckboxPosition();
+	}
+
+	private void createCheckbox() {
+		checkBox = new JCheckBox();
+		checkBox.setSelected(false);
+		checkBox.setOpaque(false);
+		checkBox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent event) {				
+				getLogicalElement().setCatched(checkBox.isSelected());
+			}
+		});
+		checkBox.setSelected(getLogicalElement().isCatched());
+		getParent().add(checkBox, 0);
+	}
+
+	private void updateCheckboxPosition() {
+		if (checkBox != null) {
+			final Point point = getInnerBounds().getPoint(HorizontalPosition.CENTER, VerticalPosition.BOTTOM);
+			if (point != null) {
+				final Dimension size = checkBox.getPreferredSize();
+				checkBox.setBounds(point.getX() - (size.width / 2), point.getY() - (size.height / 2),
+						size.width, size.height);
+			}
+		}
 	}
 
 }

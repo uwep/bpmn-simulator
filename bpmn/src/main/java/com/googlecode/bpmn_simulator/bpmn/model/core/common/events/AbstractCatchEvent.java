@@ -18,11 +18,23 @@
  */
 package com.googlecode.bpmn_simulator.bpmn.model.core.common.events;
 
+import com.googlecode.bpmn_simulator.animation.token.Token;
+
 abstract class AbstractCatchEvent
 		extends AbstractEvent {
 
+	private boolean catched;
+
 	public AbstractCatchEvent(final String id, final String name) {
 		super(id, name);
+	}
+
+	public boolean isCatched() {
+		return catched;
+	}
+
+	public void setCatched(boolean catched) {
+		this.catched = catched;
 	}
 
 }

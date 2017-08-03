@@ -18,11 +18,19 @@
  */
 package com.googlecode.bpmn_simulator.bpmn.model.core.common.events;
 
+import com.googlecode.bpmn_simulator.animation.token.Token;
+
 public final class IntermediateCatchEvent
 		extends AbstractCatchEvent {
 
 	public IntermediateCatchEvent(final String id, final String name) {
 		super(id, name);
+	}
+
+	@Override
+	protected void onTokenComplete(Token token) {
+		if (isCatched())
+			super.onTokenComplete(token);
 	}
 
 }

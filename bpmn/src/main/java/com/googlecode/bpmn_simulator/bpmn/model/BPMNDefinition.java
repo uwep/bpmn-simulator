@@ -175,8 +175,10 @@ public class BPMNDefinition<E extends BPMNDiagram<?>>
 				}
 				// UweP 2017
 				if (flowElement instanceof IntermediateCatchEvent) {
-					if (((IntermediateCatchEvent)flowElement).getEventDefinition() instanceof LinkEventDefinition)				
+					if (((IntermediateCatchEvent)flowElement).getEventDefinition() instanceof LinkEventDefinition) {			
 						instantiatingElements.add(flowElement);
+						((IntermediateCatchEvent)flowElement).setCatched(true);
+					}
 				}
 				
 			}
@@ -522,7 +524,7 @@ public class BPMNDefinition<E extends BPMNDiagram<?>>
 			final FlowElementsContainer container) {
 		if (isElementNode(node, BPMN, "boundaryEvent")) { //$NON-NLS-1$
 			final BoundaryEvent event = new BoundaryEvent(getIdAttribute(node),
-					getNameAttribute(node), getAttachedToRefAttribute(node));
+					getNameAttribute(node), getAttachedToRefAttribute(node), getCancelActivityAttribute(node));
 			readChildrenOfEvent(node, event);
 			container.addFlowElement(event);
 			registerElement(event);

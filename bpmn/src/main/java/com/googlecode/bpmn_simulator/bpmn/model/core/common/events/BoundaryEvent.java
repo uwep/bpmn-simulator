@@ -27,10 +27,12 @@ public final class BoundaryEvent
 		extends AbstractCatchEvent {
 
 	private Reference<FlowNode> attachedToRef;
+	private boolean cancelActivity;
 	
-	public BoundaryEvent(final String id, final String name, final Reference<FlowNode> attachedToRef) {
+	public BoundaryEvent(final String id, final String name, final Reference<FlowNode> attachedToRef, boolean cancelActivity) {
 		super(id, name);
 		this.attachedToRef = attachedToRef;
+		this.cancelActivity = cancelActivity;
 		if (attachedToRef.hasReference()) {
 			if (attachedToRef.getReferenced() instanceof AbstractActivity) {
 				AbstractActivity activity = (AbstractActivity)attachedToRef.getReferenced();
@@ -38,4 +40,19 @@ public final class BoundaryEvent
 			}
 		}
 	}
+
+	/**
+	 * @return the cancelActivity
+	 */
+	public boolean isCancelActivity() {
+		return cancelActivity;
+	}
+
+	/**
+	 * @param cancelActivity the cancelActivity to set
+	 */
+	public void setCancelActivity(boolean cancelActivity) {
+		this.cancelActivity = cancelActivity;
+	}
+	
 }

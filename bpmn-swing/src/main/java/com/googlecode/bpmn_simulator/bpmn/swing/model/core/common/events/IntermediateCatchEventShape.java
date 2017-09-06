@@ -21,7 +21,9 @@ package com.googlecode.bpmn_simulator.bpmn.swing.model.core.common.events;
 import com.googlecode.bpmn_simulator.animation.element.visual.HorizontalPosition;
 import com.googlecode.bpmn_simulator.animation.element.visual.Point;
 import com.googlecode.bpmn_simulator.animation.element.visual.VerticalPosition;
+import com.googlecode.bpmn_simulator.bpmn.model.core.common.events.EventDefinition;
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.events.IntermediateCatchEvent;
+import com.googlecode.bpmn_simulator.bpmn.model.core.common.events.TimerEventDefinition;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -46,7 +48,8 @@ public class IntermediateCatchEventShape
 	public void addNotify() {
 		// TODO Auto-generated method stub
 		super.addNotify();
-		if (checkBox == null) {
+		final EventDefinition definition = getLogicalElement().getEventDefinition();
+		if (checkBox == null && definition instanceof TimerEventDefinition) {
 			createCheckbox();
 		}
 		updateCheckboxPosition();

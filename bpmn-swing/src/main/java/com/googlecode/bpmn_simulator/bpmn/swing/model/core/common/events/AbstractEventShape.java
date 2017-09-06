@@ -18,12 +18,14 @@
  */
 package com.googlecode.bpmn_simulator.bpmn.swing.model.core.common.events;
 
+import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
 import com.googlecode.bpmn_simulator.animation.element.visual.HorizontalPosition;
 import com.googlecode.bpmn_simulator.animation.element.visual.Label;
 import com.googlecode.bpmn_simulator.animation.element.visual.VerticalPosition;
+import com.googlecode.bpmn_simulator.bpmn.model.core.common.events.BoundaryEvent;
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.events.ConditionalEventDefinition;
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.events.ErrorEventDefinition;
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.events.Event;
@@ -53,11 +55,20 @@ abstract class AbstractEventShape<E extends Event>
 	protected void paintElementBackground(final Graphics2D g) {
 		super.paintElementBackground(g);
 		getPresentation().fillOval(g, getInnerBoundsRelative());
+
 	}
 
 	@Override
 	protected void paintElementForeground(final Graphics2D g) {
 		super.paintElementForeground(g);
+		if (getLogicalElement() instanceof BoundaryEvent) {
+			if ( ((BoundaryEvent)getLogicalElement()).isCancelActivity() == false) {
+			float dash[] = { 2.0f };
+		    g.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
+		        BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f));
+			}
+			getPresentation().drawOval(g, getInnerBoundsRelative().shrink(4));
+		}
 		getPresentation().drawOval(g, getInnerBoundsRelative());
 		paintElementIcon(g);
 	}

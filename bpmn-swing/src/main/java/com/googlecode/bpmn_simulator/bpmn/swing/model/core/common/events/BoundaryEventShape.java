@@ -47,7 +47,11 @@ public class BoundaryEventShape
 		// TODO Auto-generated method stub
 		super.addNotify();
 		if (checkBox == null) {
-			createCheckbox();
+			BoundaryEvent element = (BoundaryEvent)getLogicalElement();
+			if (element.getInMessageFlow() != null && element.getInMessageFlow().hasReference()) {
+				element.setCatched(false);
+			} else
+				createCheckbox();
 		}
 		updateCheckboxPosition();
 	}
@@ -67,6 +71,9 @@ public class BoundaryEventShape
 	}
 
 	private void updateCheckboxPosition() {
+//		BoundaryEvent element = (BoundaryEvent)getLogicalElement();
+//		if (element.getInMessageFlow() != null && element.getInMessageFlow().hasReference() && element.getInMessageFlow().getReferenced().containsMessage())
+//			((BoundaryEvent)getLogicalElement()).setCatched(true);
 		if (checkBox != null) {
 			final Point point = getInnerBounds().getPoint(HorizontalPosition.CENTER, VerticalPosition.BOTTOM);
 			if (point != null) {

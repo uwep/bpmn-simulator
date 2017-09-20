@@ -18,7 +18,9 @@
  */
 package com.googlecode.bpmn_simulator.bpmn.model.core.common.events;
 
+import com.googlecode.bpmn_simulator.animation.ref.Reference;
 import com.googlecode.bpmn_simulator.animation.token.Token;
+import com.googlecode.bpmn_simulator.bpmn.model.collaboration.MessageFlow;
 
 abstract class AbstractCatchEvent
 		extends AbstractEvent {
@@ -35,6 +37,17 @@ abstract class AbstractCatchEvent
 
 	public void setCatched(boolean catched) {
 		this.catched = catched;
+	}
+	
+	@Override
+	protected void onTokenComplete(Token token) {
+		Reference<MessageFlow> msgFlowRef = this.getInMessageFlow();
+		if (msgFlowRef != null && msgFlowRef.getReferenced() != null && msgFlowRef.getReferenced().containsMessage()) {
+			msgFlowRef.getReferenced().cleanMessage();
+			super.onTokenComplete(token);
+		} else
+			if (isCatched())
+				super.onTokenComplete(token);
 	}
 
 }

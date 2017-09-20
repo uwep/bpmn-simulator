@@ -20,7 +20,9 @@ package com.googlecode.bpmn_simulator.bpmn.model.process.activities;
 
 import com.googlecode.bpmn_simulator.animation.ref.Reference;
 import com.googlecode.bpmn_simulator.animation.token.Token;
+import com.googlecode.bpmn_simulator.bpmn.model.collaboration.MessageFlow;
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.AbstractFlowNode;
+import com.googlecode.bpmn_simulator.bpmn.model.core.common.Message;
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.SequenceFlow;
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.events.BoundaryEvent;
 
@@ -36,6 +38,13 @@ public abstract class AbstractActivity
 
 	private BoundaryEvent boundaryEventRef;
 	
+	/**
+	 * @return the boundaryEventRef
+	 */
+	public BoundaryEvent getBoundaryEventRef() {
+		return boundaryEventRef;
+	}
+
 	public AbstractActivity(final String id, final String name, final boolean isForCompensation) {
 		super(id, name);
 		forCompensation = isForCompensation;
@@ -77,6 +86,9 @@ public abstract class AbstractActivity
 			token.getInstance().createNewToken(boundaryEventRef, this);
 		} else
 			copyTokenToOutgoing(token, token.getInstance(), false, this);
+		Reference<MessageFlow> outMessageFlowRef = this.getOutMessageFlow();
+		if (outMessageFlowRef != null && outMessageFlowRef.getReferenced() != null)
+			outMessageFlowRef.getReferenced().setContainedMessage(new Message("Msg_" + this.getId(), "Msg_" + this.getName()), token);
 	}
 
 	@Override

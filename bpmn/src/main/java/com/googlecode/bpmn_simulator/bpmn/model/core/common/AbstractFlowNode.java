@@ -25,6 +25,7 @@ import com.googlecode.bpmn_simulator.animation.token.Instance;
 import com.googlecode.bpmn_simulator.animation.token.Token;
 import com.googlecode.bpmn_simulator.animation.token.TokenFlow;
 import com.googlecode.bpmn_simulator.animation.token.Tokens;
+import com.googlecode.bpmn_simulator.bpmn.model.collaboration.MessageFlow;
 
 public abstract class AbstractFlowNode
 		extends AbstractFlowElement
@@ -32,6 +33,9 @@ public abstract class AbstractFlowNode
 
 	private final ReferenceSet<SequenceFlow> incoming = new ReferenceSet<>();
 	private final ReferenceSet<SequenceFlow> outgoing = new ReferenceSet<>();
+	
+	private  Reference<MessageFlow> inMessageFlowRef;
+	private  Reference<MessageFlow> outMessageFlowRef;
 
 	public AbstractFlowNode(final String id, final String name) {
 		super(id, name);
@@ -57,6 +61,23 @@ public abstract class AbstractFlowNode
 		return outgoing;
 	}
 
+	public Reference<MessageFlow> getInMessageFlow() {
+		return inMessageFlowRef;
+	}
+
+	public void setInMessageFlow(Reference<MessageFlow> inMessageFlow) {
+		this.inMessageFlowRef = inMessageFlow;
+	}
+
+	public Reference<MessageFlow> getOutMessageFlow() {
+		return outMessageFlowRef;
+	}
+
+	public void setOutMessageFlowf(Reference<MessageFlow> outMessageFlow) {
+		this.outMessageFlowRef = outMessageFlow;
+	}
+
+	
 	protected final void copyTokenToAllOutgoing(final Token token) {
 		copyTokenToOutgoing(token, token.getInstance(), false, null);
 	}

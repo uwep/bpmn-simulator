@@ -26,6 +26,7 @@ public final class StartEvent
 	public StartEvent(final String id, final String name, final boolean isInterrupting) {
 		super(id, name);
 		interrupting = isInterrupting;
+		setCatched(true);
 	}
 
 	public boolean isInterrupting() {

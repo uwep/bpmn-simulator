@@ -18,7 +18,10 @@
  */
 package com.googlecode.bpmn_simulator.bpmn.model.core.common.events;
 
+import com.googlecode.bpmn_simulator.animation.ref.Reference;
 import com.googlecode.bpmn_simulator.animation.token.Token;
+import com.googlecode.bpmn_simulator.bpmn.model.collaboration.MessageFlow;
+import com.googlecode.bpmn_simulator.bpmn.model.core.common.Message;
 
 public final class EndEvent
 		extends AbstractThrowEvent {
@@ -30,6 +33,9 @@ public final class EndEvent
 	@Override
 	protected void onTokenAction(final Token token) {
 		super.onTokenAction(token);
+		Reference<MessageFlow> outMessageFlowRef = this.getOutMessageFlow();
+		if (outMessageFlowRef != null && outMessageFlowRef.getReferenced() != null)
+			outMessageFlowRef.getReferenced().setContainedMessage(new Message("Msg_" + this.getId(), "Msg_" + this.getName()), token);
 		final EventDefinition eventDefinition = getEventDefinition();
 		if (eventDefinition instanceof TerminateEventDefinition) {
 			token.getInstance().remove();

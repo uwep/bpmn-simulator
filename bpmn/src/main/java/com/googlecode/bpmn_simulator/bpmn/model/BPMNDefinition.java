@@ -653,7 +653,8 @@ public class BPMNDefinition<E extends BPMNDiagram<?>>
 	protected boolean readElementMessageFlow(final Node node) {
 		if (isElementNode(node, BPMN, "messageFlow")) { //$NON-NLS-1$
 			final MessageFlow messageFlow = new MessageFlow(
-					getIdAttribute(node), getNameAttribute(node));
+					getIdAttribute(node), getNameAttribute(node),
+					getSourceRefAttribute(node), getTargetRefAttribute(node));
 			readAnyChildOfBaseElement(node, messageFlow);
 			registerElement(messageFlow);
 			return true;
@@ -1263,10 +1264,32 @@ public class BPMNDefinition<E extends BPMNDiagram<?>>
 		}
 	}
 
+	private void assignMessageFlowsToFlowNodes() {
+		final Map<String, MessageFlow> messageFlows = elements.getElementsByClass(MessageFlow.class);
+		for (final Entry<String, MessageFlow> element : messageFlows.entrySet()) {
+			final String name = element.getKey();
+			final MessageFlow messageFlow = element.getValue();
+			final Reference<MessageFlow> messageFlowRef = new CastReference<>(new NamedReference<>(elements, name), MessageFlow.class);
+			final FlowNode source = ReferenceUtils.element(messageFlow.getSourceRef());
+			if (source != null) {
+				source.setOutMessageFlowf(messageFlowRef);
+			} else {
+				LOG.warn(MessageFormat.format("Source FlowNode for MessageFlow {} not found", name));
+			}
+			final FlowNode target = ReferenceUtils.element(messageFlow.getTargetRef());
+			if (target != null) {
+				target.setInMessageFlow(messageFlowRef);
+			} else {
+				LOG.warn(MessageFormat.format("Target FlowNode for MessageFlow {} not found", name));
+			}
+		}
+	}
+
 	@Override
 	protected void loadData(final Node node) {
 		if (readElementDefinitions(node)) {
 			assignSequenceFlowsToFlowNodes();
+			assignMessageFlowsToFlowNodes();
 		} else {
 			LOG.error("schema doesn''t contains definitions");
 		}

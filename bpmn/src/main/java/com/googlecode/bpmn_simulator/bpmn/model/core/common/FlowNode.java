@@ -20,6 +20,7 @@ package com.googlecode.bpmn_simulator.bpmn.model.core.common;
 
 import com.googlecode.bpmn_simulator.animation.ref.Reference;
 import com.googlecode.bpmn_simulator.animation.ref.References;
+import com.googlecode.bpmn_simulator.bpmn.model.collaboration.MessageFlow;
 
 public interface FlowNode
 		extends FlowElement {
@@ -31,5 +32,13 @@ public interface FlowNode
 	void addOutgoing(Reference<SequenceFlow> outgoing);
 
 	References<SequenceFlow> getOutgoing();
+	
+	public Reference<MessageFlow> getInMessageFlow();
+
+	public void setInMessageFlow(Reference<MessageFlow> inMessageFlow);
+
+	public Reference<MessageFlow> getOutMessageFlow();
+
+	public void setOutMessageFlowf(Reference<MessageFlow> outMessageFlow);
 
 }

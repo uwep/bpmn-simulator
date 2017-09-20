@@ -18,7 +18,10 @@
  */
 package com.googlecode.bpmn_simulator.bpmn.model.process.activities.tasks;
 
+import com.googlecode.bpmn_simulator.animation.ref.Reference;
+import com.googlecode.bpmn_simulator.animation.token.Token;
 import com.googlecode.bpmn_simulator.bpmn.model.InstantiateElement;
+import com.googlecode.bpmn_simulator.bpmn.model.collaboration.MessageFlow;
 
 public final class ReceiveTask
 		extends Task
@@ -35,6 +38,21 @@ public final class ReceiveTask
 	@Override
 	public boolean isInstantiate() {
 		return instantiate;
+	}
+
+	@Override
+	protected void onTokenComplete(Token token) {
+		if (getBoundaryEventRef() != null && getBoundaryEventRef().isCatched()) {
+			if (!getBoundaryEventRef().isCancelActivity())
+				token.getInstance().createNewToken(getBoundaryEventRef(), this);
+			super.onTokenComplete(token);
+		} else {
+			Reference<MessageFlow> msgFlowRef = this.getInMessageFlow();
+			if (msgFlowRef != null && msgFlowRef.getReferenced() != null && msgFlowRef.getReferenced().containsMessage()) {
+				msgFlowRef.getReferenced().cleanMessage();
+				super.onTokenComplete(token);
+			}
+		}
 	}
 
 }

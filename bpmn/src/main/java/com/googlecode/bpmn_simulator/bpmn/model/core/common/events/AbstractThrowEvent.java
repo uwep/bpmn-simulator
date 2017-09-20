@@ -18,11 +18,24 @@
  */
 package com.googlecode.bpmn_simulator.bpmn.model.core.common.events;
 
+import com.googlecode.bpmn_simulator.animation.ref.Reference;
+import com.googlecode.bpmn_simulator.animation.token.Token;
+import com.googlecode.bpmn_simulator.bpmn.model.collaboration.MessageFlow;
+import com.googlecode.bpmn_simulator.bpmn.model.core.common.Message;
+
 abstract class AbstractThrowEvent
 		extends AbstractEvent {
 
 	public AbstractThrowEvent(final String id, final String name) {
 		super(id, name);
+	}
+
+	@Override
+	protected void forwardToken(Token token) {
+		super.forwardToken(token);
+		Reference<MessageFlow> outMessageFlowRef = this.getOutMessageFlow();
+		if (outMessageFlowRef != null && outMessageFlowRef.getReferenced() != null)
+			outMessageFlowRef.getReferenced().setContainedMessage(new Message("Msg_" + this.getId(), "Msg_" + this.getName()));
 	}
 
 }

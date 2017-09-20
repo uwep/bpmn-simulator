@@ -18,6 +18,7 @@
  */
 package com.googlecode.bpmn_simulator.bpmn.swing.model.collaboration;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 
@@ -31,9 +32,9 @@ import com.googlecode.bpmn_simulator.bpmn.swing.di.Appearance;
 public class MessageFlowEdge
 			extends AbstractBPMNEdge<MessageFlow> {
 
-	private static final Stroke START_STROKE = Appearance.getDefault().createStrokeSolid(1);
-	private static final Stroke LINE_STROKE = Appearance.getDefault().createStrokeDashed(1);
-	private static final Stroke END_STROKE = Appearance.getDefault().createStrokeSolid(1);
+	private static final Stroke START_STROKE = Appearance.getDefault().createStrokeSolid(2);
+	private static final Stroke LINE_STROKE = Appearance.getDefault().createStrokeDashed(2);
+	private static final Stroke END_STROKE = Appearance.getDefault().createStrokeSolid(2);
 
 	public MessageFlowEdge(final MessageFlow element) {
 		super(element);
@@ -41,29 +42,44 @@ public class MessageFlowEdge
 
 	@Override
 	protected void paintElementLine(final Graphics2D g) {
+		if (this.getLogicalElement().containsMessage())
+			g.setColor(Color.GREEN);
+		else
+			g.setColor(Color.BLACK);
 		g.setStroke(LINE_STROKE);
 		super.paintElementLine(g);
+		super.repaint();
 	}
 
 	@Override
 	protected void paintElementStart(final Graphics2D g) {
+		if (this.getLogicalElement().containsMessage())
+			g.setColor(Color.GREEN);
+		else
+			g.setColor(Color.BLACK);
 		super.paintElementStart(g);
 		final Waypoints waypoints = getWaypointsRelative();
 		if (waypoints.isValid()) {
-			final Bounds bounds = Bounds.fromCenter(waypoints.first(), 2);
+			final Bounds bounds = Bounds.fromCenter(waypoints.first(), 3);
 			g.setStroke(START_STROKE);
 			getPresentation().drawOval(g, bounds);
 		}
+		super.repaint();
 	}
 
 	@Override
 	protected void paintElementEnd(final Graphics2D g) {
+		if (this.getLogicalElement().containsMessage())
+			g.setColor(Color.GREEN);
+		else
+			g.setColor(Color.BLACK);
 		super.paintElementEnd(g);
 		g.setStroke(END_STROKE);
 		final Waypoints waypoints = getWaypointsRelative();
 		if (waypoints.isValid()) {
 			getPresentation().drawArrowhead(g, waypoints.nextToLast(), waypoints.last());
 		}
+		super.repaint();
 	}
 
 }

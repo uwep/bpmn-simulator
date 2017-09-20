@@ -25,7 +25,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-abstract class InstanceContainer
+public abstract class InstanceContainer
 		implements Iterable<Instance> {
 
 	private final Collection<Instance> childInstances = new ArrayList<>();
@@ -42,8 +42,8 @@ abstract class InstanceContainer
 	protected void detach() {
 		parent = null;
 	}
-
-	protected InstanceContainer getTopLevelContainer() {
+	
+	public InstanceContainer getTopLevelContainer() {
 		InstanceContainer container = this;
 		while (true) {
 			final InstanceContainer parent = container.getParentContainer();
@@ -55,7 +55,7 @@ abstract class InstanceContainer
 		return container;
 	}
 
-	protected InstanceContainer getParentContainer() {
+	public InstanceContainer getParentContainer() {
 		return parent;
 	}
 

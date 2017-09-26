@@ -84,9 +84,8 @@ public class MessageFlow
 		if (targetRef != null && targetRef.hasReference()) {
 			FlowNode fNode = targetRef.getReferenced();
 			if (fNode instanceof StartEvent && token != null)
-//				token.getInstance().createNewToken(fNode, null);
-//				token.getInstance().addNewChildInstance(null).createNewToken(fNode, null);
-			token.getInstance().getParentContainer().addNewChildInstance(null).createNewToken(fNode, null);
+//			token.getInstance().getParentContainer().addNewChildInstance(null).createNewToken(fNode, null);
+			token.getInstance().createNewInstance(fNode);
 			if (fNode instanceof BoundaryEvent)
 				((BoundaryEvent)fNode).setCatched(true);
 		}

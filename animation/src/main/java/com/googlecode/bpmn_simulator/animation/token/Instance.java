@@ -192,6 +192,10 @@ public final class Instance
 		return token;
 	}
 
+	public Token createNewInstance(final TokenFlow currentTokenFlow) {
+		return getParentContainer().addNewChildInstance(null).createNewToken(currentTokenFlow, null);
+	}
+	
 	@Override
 	protected void removeChildInstance(final Instance childInstance) {
 		super.removeChildInstance(childInstance);

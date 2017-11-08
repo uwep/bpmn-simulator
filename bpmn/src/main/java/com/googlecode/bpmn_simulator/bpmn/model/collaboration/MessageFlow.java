@@ -66,12 +66,12 @@ public class MessageFlow
 	}
 	
 	public void cleanMessage() {
-		setContainedMessage(null);
+		setContainedMessage(null, null);
 	}
 	
-	public void setContainedMessage(Message containedMessage) {
-		this.setContainedMessage(containedMessage, null);
-	}
+//	public void setContainedMessage(Message containedMessage) {
+//		this.setContainedMessage(containedMessage, null);
+//	}
 
 
 	public Message getContainedMessage() {

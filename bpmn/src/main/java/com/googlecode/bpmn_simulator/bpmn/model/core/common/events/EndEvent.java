@@ -33,9 +33,6 @@ public final class EndEvent
 	@Override
 	protected void onTokenAction(final Token token) {
 		super.onTokenAction(token);
-		Reference<MessageFlow> outMessageFlowRef = this.getOutMessageFlow();
-		if (outMessageFlowRef != null && outMessageFlowRef.getReferenced() != null)
-			outMessageFlowRef.getReferenced().setContainedMessage(new Message("Msg_" + this.getId(), "Msg_" + this.getName()), token);
 		final EventDefinition eventDefinition = getEventDefinition();
 		if (eventDefinition instanceof TerminateEventDefinition) {
 			token.getInstance().remove();

@@ -35,7 +35,7 @@ abstract class AbstractThrowEvent
 		super.forwardToken(token);
 		Reference<MessageFlow> outMessageFlowRef = this.getOutMessageFlow();
 		if (outMessageFlowRef != null && outMessageFlowRef.getReferenced() != null)
-			outMessageFlowRef.getReferenced().setContainedMessage(new Message("Msg_" + this.getId(), "Msg_" + this.getName()));
+			outMessageFlowRef.getReferenced().setContainedMessage(new Message("Msg_" + this.getId(), "Msg_" + this.getName()), token);
 	}
 
 }

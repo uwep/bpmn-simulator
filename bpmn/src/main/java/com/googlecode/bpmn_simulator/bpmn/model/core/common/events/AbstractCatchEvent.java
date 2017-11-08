@@ -44,6 +44,7 @@ abstract class AbstractCatchEvent
 		Reference<MessageFlow> msgFlowRef = this.getInMessageFlow();
 		if (msgFlowRef != null && msgFlowRef.getReferenced() != null && msgFlowRef.getReferenced().containsMessage()) {
 			msgFlowRef.getReferenced().cleanMessage();
+			setCatched(false);
 			super.onTokenComplete(token);
 		} else
 			if (isCatched())

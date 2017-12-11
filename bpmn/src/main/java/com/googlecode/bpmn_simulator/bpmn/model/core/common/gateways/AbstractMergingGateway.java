@@ -32,6 +32,10 @@ abstract class AbstractMergingGateway
 	protected void onTokenComplete(final Token token) {
 		final Tokens inputTokens = getTokenForEveryIncoming(token);
 		if (inputTokens != null) {
+//			protected void onTokenComplete(final Token token) {
+//				forwardToken(token);
+//				token.remove();
+//			}
 			super.onTokenComplete(token);
 			inputTokens.removeAll();
 		}

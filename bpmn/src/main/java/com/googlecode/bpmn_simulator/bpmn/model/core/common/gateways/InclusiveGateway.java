@@ -18,13 +18,19 @@
  */
 package com.googlecode.bpmn_simulator.bpmn.model.core.common.gateways;
 
+import java.util.Iterator;
+
 import com.googlecode.bpmn_simulator.animation.ref.Reference;
+import com.googlecode.bpmn_simulator.animation.ref.ReferenceSet;
+import com.googlecode.bpmn_simulator.animation.ref.References;
+import com.googlecode.bpmn_simulator.animation.token.Instance;
 import com.googlecode.bpmn_simulator.animation.token.Token;
+import com.googlecode.bpmn_simulator.animation.token.Tokens;
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.DefaultSequenceFlowElement;
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.SequenceFlow;
 
 public final class InclusiveGateway
-		extends AbstractMergingGateway
+		extends AbstractGateway
 		implements DefaultSequenceFlowElement {
 
 	private Reference<SequenceFlow> defaultSequenceFlow;
@@ -48,7 +54,40 @@ public final class InclusiveGateway
 
 	@Override
 	protected void forwardToken(final Token token) {
+//		void copyTokenToOutgoing(final Token token, final Instance instance, final boolean firstOnly,
+//				final DefaultSequenceFlowElement defaultSequenceFlowElement)
 		copyTokenToOutgoing(token, token.getInstance(), false, this);
+	}
+
+	@Override
+	protected void onTokenComplete(final Token token) {
+		ReferenceSet<SequenceFlow> incomings = (ReferenceSet<SequenceFlow>)getIncoming();
+		int countIncome = incomings.getReferencedCount();
+		// count incoming sequence flows; 0 or 1 call super 
+		if (countIncome < 2)
+			super.onTokenComplete(token);
+		else {
+			final Tokens inputTokens = getTokenOtherIncoming(token);
+			final int countToken = token.getInstance().getTokens(true).size();
+			if (inputTokens.size() + 1 == countToken) {
+				super.onTokenComplete(token);
+				inputTokens.removeAll();
+			}
+		}
+	}
+
+	protected Tokens getTokenOtherIncoming(final Token forToken) {
+		final Tokens tokens = new Tokens();
+		final Tokens availableTokens = getCompleteTokens().getByInstance(forToken.getInstance());
+		for (final SequenceFlow incoming : getIncoming()) {
+			if (incoming.equals(forToken.getPreviousTokenFlow())) {
+				continue;
+			}
+			final Tokens incomingTokens = availableTokens.getByPreviousTokenFlow(incoming);
+			if (!incomingTokens.isEmpty()) 
+				tokens.add(incomingTokens.get(0));
+		}
+		return tokens;
 	}
 
 }

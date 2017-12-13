@@ -162,6 +162,8 @@ public class Presentation {
 
 	public void drawDocument(final Graphics2D g, final Bounds bounds, final int n) {
 		g.draw(createDocument(bounds, n));
+		g.drawLine(bounds.getMaxX() - n, bounds.getMinY(), bounds.getMaxX() - n, bounds.getMinY() + n);
+		g.drawLine(bounds.getMaxX() - n, bounds.getMinY() + n, bounds.getMaxX(), bounds.getMinY() + n);
 	}
 
 	public void drawToken(final Graphics2D g, final Token token, final int centerX, final int centerY) {
@@ -173,14 +175,18 @@ public class Presentation {
 //		g.setStroke(TOKEN_STROKE);
 //		g.setPaint(Color.BLACK);
 //		g.draw(shape);
-		final Bounds head = Bounds.fromCenter(centerX, centerY - 5, 3);
-		final Bounds body = Bounds.fromCenter(centerX, centerY, 4);
-		fillOval(g, head);
-		fillOval(g, body);
+
+//		final Bounds head = Bounds.fromCenter(centerX, centerY - 5, 3);
+//		final Bounds body = Bounds.fromCenter(centerX, centerY, 4);
+//		fillOval(g, head);
+//		fillOval(g, body);
+		final Bounds docBounds = Bounds.fromCenter(centerX, centerY, 6, 8);
+		fillDocument(g, docBounds, 5);
 		g.setStroke(TOKEN_STROKE);
 		g.setPaint(Color.BLACK);
-		drawOval(g, head);
-		drawOval(g, body);
+//		drawOval(g, head);
+//		drawOval(g, body);
+		drawDocument(g, docBounds, 5);
 	}
 
 	public void drawTokens(final Graphics2D g, final Tokens tokens,

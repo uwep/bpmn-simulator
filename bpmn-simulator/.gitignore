@@ -1,9 +1,0 @@
-# Eclipse
-.classpath
-.project
-.settings/
-
-# Maven
-target/
-
-log4j2-test.*

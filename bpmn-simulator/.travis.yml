@@ -1,6 +1,0 @@
-language: java
-install: mvn install -DenableAssertions=false
-jdk:
-  - oraclejdk8
-  - oraclejdk7
-  - openjdk7

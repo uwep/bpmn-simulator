@@ -38,13 +38,15 @@ public abstract class AbstractLabel
 
 	private boolean needsRotate;
 	private boolean vertical;
+	
+	public static float fontSize = 12.f;
 
 	public AbstractLabel() {
 		super();
 		// UweP
 		// set label font size
 //		setFont(getFont().deriveFont(8.f));
-		setFont(getFont().deriveFont(10.f));
+		setFont(getFont().deriveFont(fontSize));
 		
 	}
 

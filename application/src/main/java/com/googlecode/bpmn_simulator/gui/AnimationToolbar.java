@@ -31,6 +31,8 @@ import javax.swing.event.ChangeListener;
 import com.googlecode.bpmn_simulator.animation.execution.AnimationListener;
 import com.googlecode.bpmn_simulator.animation.execution.Animator;
 
+import com.googlecode.bpmn_simulator.animation.element.visual.swing.AbstractLabel;
+
 @SuppressWarnings("serial")
 public class AnimationToolbar
 		extends JToolBar
@@ -40,6 +42,10 @@ public class AnimationToolbar
 
 	private JButton buttonPauseContinue;
 	private JButton buttonStep;
+
+	private JLabel fontLabel;
+	private JButton fontPlus;
+	private JButton fontMinus;
 
 	private JLabel labelSpeed;
 	private SpeedSpinner spinnerSpeed;
@@ -101,6 +107,28 @@ public class AnimationToolbar
 		labelSpeed.setLabelFor(spinnerSpeed);
 		add(spinnerSpeed);
 
+		fontLabel = new JLabel("FontSize " + AbstractLabel.fontSize);
+		add(fontLabel);
+		fontPlus = new JButton("+");
+		fontPlus.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent event) {
+				AbstractLabel.fontSize = AbstractLabel.fontSize + 1f; 
+				fontLabel.setText("FontSize " + AbstractLabel.fontSize);
+			}
+		});
+		add(fontPlus);
+		
+		fontMinus = new JButton("-");
+		fontMinus.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent event) {
+				AbstractLabel.fontSize = AbstractLabel.fontSize - 1f; 
+				fontLabel.setText("FontSize " + AbstractLabel.fontSize);
+			}
+		});
+		add(fontMinus);
+		
 		updateControls();
 	}
 

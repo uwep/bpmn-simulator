@@ -24,7 +24,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 import org.jdesktop.swingx.JXButton;
-import org.jdesktop.swingx.JXSearchField;
+import org.jdesktop.swingx.JXTextField;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.color.EyeDropperColorChooserPanel;
 import org.jdesktop.swingx.sort.RowFilters;
@@ -79,7 +79,7 @@ public class ElementsTable
 
 	public static JComponent decorate(final ElementsTable table) {
 		table.setFillsViewportHeight(true);
-		final JXSearchField search = new JXSearchField();
+		final JXTextField search = new JXTextField();
 		search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {

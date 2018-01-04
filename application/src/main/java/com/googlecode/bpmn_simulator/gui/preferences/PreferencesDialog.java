@@ -21,7 +21,10 @@ package com.googlecode.bpmn_simulator.gui.preferences;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.GridLayout;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.URI;
 import java.util.Locale;
 
@@ -37,6 +40,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.JComboBox;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -47,6 +51,7 @@ import com.googlecode.bpmn_simulator.animation.element.logical.LogicalElement;
 import com.googlecode.bpmn_simulator.animation.element.logical.LogicalElements;
 import com.googlecode.bpmn_simulator.animation.element.visual.VisualElement;
 import com.googlecode.bpmn_simulator.animation.element.visual.VisualElements;
+import com.googlecode.bpmn_simulator.animation.element.visual.swing.AbstractLabel;
 import com.googlecode.bpmn_simulator.animation.module.Module;
 import com.googlecode.bpmn_simulator.animation.module.ModuleRegistry;
 import com.googlecode.bpmn_simulator.gui.AbstractDialog;
@@ -64,7 +69,7 @@ public class PreferencesDialog
 
 	private final JCheckBox checkKeepEvents
 			= new JCheckBox(Messages.getString("Preferences.keepEvents")); //$NON-NLS-1$
-
+		
 	private final JCheckBox checkShowExclusiveSymbol
 			= new JCheckBox(Messages.getString("Preferences.showSymbolInExclusiveGateway"));  //$NON-NLS-1$
 	private final JCheckBox checkAntialiasing
@@ -154,18 +159,35 @@ public class PreferencesDialog
 		panel.setBorder(createGapBorder());
 
 		panel.add(checkKeepEvents);
-
+		
 		return panel;
 	}
 
 	protected JPanel createDisplayPanel() {
 		final JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		panel.setLayout(new GridLayout(0, 1));
 		panel.setBorder(createGapBorder());
 
 		panel.add(checkShowExclusiveSymbol);
 		panel.add(checkAntialiasing);
 
+		String[] sizes = {"8", "9", "10", "11", "12",  "14"};
+		int index = (int)AbstractLabel.fontSize - 8;
+		JLabel sizesLabel = new JLabel("Fontsize");		
+		JComboBox sizesBox = new JComboBox(sizes);
+		sizesBox.setSelectedIndex(index);
+		sizesBox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent event) {
+				JComboBox cb = (JComboBox)event.getSource();
+				int s = Integer.valueOf((String)cb.getSelectedItem());
+				AbstractLabel.fontSize = s; 
+			}
+		});
+		panel.add(sizesLabel);
+		sizesLabel.setLabelFor(sizesBox);
+		panel.add(sizesBox);
+		
 		return panel;
 	}
 

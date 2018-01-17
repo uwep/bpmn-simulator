@@ -165,12 +165,15 @@ public class PreferencesDialog
 
 	protected JPanel createDisplayPanel() {
 		final JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(0, 1));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+//		panel.setLayout(new GridLayout(0, 2));
 		panel.setBorder(createGapBorder());
 
-		panel.add(checkShowExclusiveSymbol);
-		panel.add(checkAntialiasing);
-
+		final JPanel sizePanel = new JPanel();
+		sizePanel.setBorder(BorderFactory.createLineBorder(Color.black) );
+//		sizePanel.setLayout(new BoxLayout(sizePanel, BoxLayout.X_AXIS));
+		sizePanel.setLayout(new GridLayout(0, 4));
+		
 		String[] sizes = {"8", "9", "10", "11", "12",  "14"};
 		int index = (int)AbstractLabel.fontSize - 8;
 		JLabel sizesLabel = new JLabel("Fontsize");		
@@ -184,10 +187,14 @@ public class PreferencesDialog
 				AbstractLabel.fontSize = s; 
 			}
 		});
-		panel.add(sizesLabel);
+		sizePanel.add(sizesLabel);
 		sizesLabel.setLabelFor(sizesBox);
-		panel.add(sizesBox);
+		sizePanel.add(sizesBox);
+		panel.add(sizePanel);
 		
+		panel.add(checkShowExclusiveSymbol);
+		panel.add(checkAntialiasing);
+
 		return panel;
 	}
 

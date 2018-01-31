@@ -7,12 +7,11 @@
 	<version>1.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<url>https://github.com/steschw/bpmn-simulator</url>
-	<inceptionYear>2011</inceptionYear>
+	<url>https://github.com/uwep/bpmn-simulator</url>
 
 	<organization>
-		<name>Hochschule Kaiserslautern (University of Applied Sciences)</name>
-		<url>http://hs-kl.de/</url>
+		<name>Technische Hochschule Köln</name>
+		<url>http://th-koeln.de</url>
 	</organization>
 
 	<licenses>
@@ -35,20 +34,12 @@
 	</developers>
 
 	<scm>
-		<connection>scm:git:https://github.com/steschw/bpmn-simulator.git</connection>
-		<developerConnection>scm:git:https://github.com/steschw/bpmn-simulator.git</developerConnection>
-		<url>https://github.com/steschw/bpmn-simulator</url>
+		<connection>scm:git:https://github.com/uwep/bpmn-simulator.git</connection>
+		<developerConnection>scm:git:https://github.com/uwep/bpmn-simulator.git</developerConnection>
+		<url>https://github.com/uwep/bpmn-simulator</url>
 	</scm>
 
-	<issueManagement>
-		<system>GitHub</system>
-		<url>https://github.com/steschw/bpmn-simulator/issues</url>
-	</issueManagement>
 
-	<ciManagement>
-		<system>Travis</system>
-		<url>https://travis-ci.org/steschw/bpmn-simulator</url>
-	</ciManagement>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

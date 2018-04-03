@@ -41,6 +41,7 @@ import com.googlecode.bpmn_simulator.animation.ref.NamedElements;
 import com.googlecode.bpmn_simulator.animation.ref.NamedReference;
 import com.googlecode.bpmn_simulator.animation.ref.Reference;
 import com.googlecode.bpmn_simulator.animation.ref.ReferenceUtils;
+import com.googlecode.bpmn_simulator.animation.ref.References;
 import com.googlecode.bpmn_simulator.bpmn.Messages;
 import com.googlecode.bpmn_simulator.bpmn.di.BPMNDiagram;
 import com.googlecode.bpmn_simulator.bpmn.model.choreography.Choreography;
@@ -1285,11 +1286,29 @@ public class BPMNDefinition<E extends BPMNDiagram<?>>
 		}
 	}
 
+	private void assignEventsToEventBasedGateway() {
+		final Map<String, EventBasedGateway> eventBasedGateways = elements.getElementsByClass(EventBasedGateway.class);
+		for (final Entry<String, EventBasedGateway> element : eventBasedGateways.entrySet()) {
+			final String name = element.getKey();
+			final EventBasedGateway eventBasedGateway = element.getValue();
+			for (final SequenceFlow outgoing : eventBasedGateway.getOutgoing()) {
+				final FlowNode target = ReferenceUtils.element(outgoing.getTarget());
+				if (target instanceof IntermediateCatchEvent) {
+					final Reference<IntermediateCatchEvent> iceRef = new CastReference<>(new NamedReference<>(elements, target.getId()), IntermediateCatchEvent.class);
+					eventBasedGateway.addEventBase(iceRef);
+				} else {
+					LOG.warn(MessageFormat.format("Target must be IntermediateCatchEvent", name));
+				}
+			}
+		}
+	}
+
 	@Override
 	protected void loadData(final Node node) {
 		if (readElementDefinitions(node)) {
 			assignSequenceFlowsToFlowNodes();
 			assignMessageFlowsToFlowNodes();
+			assignEventsToEventBasedGateway();
 		} else {
 			LOG.error("schema doesn''t contains definitions");
 		}

@@ -18,7 +18,14 @@
  */
 package com.googlecode.bpmn_simulator.bpmn.model.core.common.gateways;
 
+import com.googlecode.bpmn_simulator.animation.ref.Reference;
+import com.googlecode.bpmn_simulator.animation.ref.ReferenceSet;
+import com.googlecode.bpmn_simulator.animation.ref.References;
+import com.googlecode.bpmn_simulator.animation.token.Token;
 import com.googlecode.bpmn_simulator.bpmn.model.InstantiateElement;
+import com.googlecode.bpmn_simulator.bpmn.model.core.common.FlowNode;
+import com.googlecode.bpmn_simulator.bpmn.model.core.common.SequenceFlow;
+import com.googlecode.bpmn_simulator.bpmn.model.core.common.events.IntermediateCatchEvent;
 
 public final class EventBasedGateway
 		extends AbstractGateway
@@ -36,4 +43,29 @@ public final class EventBasedGateway
 		return instantiate;
 	}
 
+	private ReferenceSet<IntermediateCatchEvent> eventBases = new ReferenceSet<IntermediateCatchEvent>();
+	
+	public void addEventBase(Reference<IntermediateCatchEvent> ice) {
+		eventBases.add(ice);
+	}
+	
+	@Override
+	protected void forwardToken(final Token token) {
+		for (final IntermediateCatchEvent ice : eventBases) {
+			if (ice.isCatched()) {
+				final SequenceFlow outgoing = ice.getIncoming().iterator().next();
+				token.getInstance().createNewToken(outgoing, this);
+			}
+		}
+	}
+	
+	@Override
+	protected void onTokenComplete(final Token token) {
+		final int size = eventBases.getReferencedCount();
+		for (final IntermediateCatchEvent ice : eventBases) {
+			final boolean catched = ice.isCatched();
+			if (catched)
+				super.onTokenComplete(token);
+		}
+	}
 }

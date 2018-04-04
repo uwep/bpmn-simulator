@@ -55,17 +55,18 @@ public final class EventBasedGateway
 			if (ice.isCatched()) {
 				final SequenceFlow outgoing = ice.getIncoming().iterator().next();
 				token.getInstance().createNewToken(outgoing, this);
+				break;
 			}
 		}
 	}
 	
 	@Override
 	protected void onTokenComplete(final Token token) {
-		final int size = eventBases.getReferencedCount();
 		for (final IntermediateCatchEvent ice : eventBases) {
-			final boolean catched = ice.isCatched();
-			if (catched)
+			if (ice.isCatched()) {
 				super.onTokenComplete(token);
+				break;
+			}
 		}
 	}
 }

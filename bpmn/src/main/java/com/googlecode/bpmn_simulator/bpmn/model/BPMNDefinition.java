@@ -175,12 +175,12 @@ public class BPMNDefinition<E extends BPMNDiagram<?>>
 					instantiatingElements.add(flowElement);
 				}
 				// UweP 2017
-				if (flowElement instanceof IntermediateCatchEvent) {
-					if (((IntermediateCatchEvent)flowElement).getEventDefinition() instanceof LinkEventDefinition) {			
-						instantiatingElements.add(flowElement);
-						((IntermediateCatchEvent)flowElement).setCatched(true);
-					}
-				}
+//				if (flowElement instanceof IntermediateCatchEvent) {
+//					if (((IntermediateCatchEvent)flowElement).getEventDefinition() instanceof LinkEventDefinition) {			
+//						instantiatingElements.add(flowElement);
+//						((IntermediateCatchEvent)flowElement).setCatched(true);
+//					}
+//				}
 				
 			}
 		}
@@ -1303,12 +1303,34 @@ public class BPMNDefinition<E extends BPMNDiagram<?>>
 		}
 	}
 
+	private void assignLinkEvents() {
+		final Map<String, IntermediateThrowEvent> intermediateThrowEvents = elements.getElementsByClass(IntermediateThrowEvent.class);
+		for (final Entry<String, IntermediateThrowEvent> element : intermediateThrowEvents.entrySet()) {
+			if (element.getValue().getEventDefinition() != null && !(element.getValue().getEventDefinition() instanceof LinkEventDefinition))
+				intermediateThrowEvents.remove(element);
+		}
+		final Map<String, IntermediateCatchEvent> intermediateCatchEvents = elements.getElementsByClass(IntermediateCatchEvent.class);
+		for (final Entry<String, IntermediateCatchEvent> element : intermediateCatchEvents.entrySet()) {
+			final IntermediateCatchEvent intermediateCatchEvent = element.getValue();
+			if (intermediateCatchEvent.getEventDefinition() != null && intermediateCatchEvent.getEventDefinition() instanceof LinkEventDefinition) {
+				intermediateCatchEvent.setCatched(true);
+				for (final Entry<String, IntermediateThrowEvent> linkThrowEventEntry : intermediateThrowEvents.entrySet()) {
+					final IntermediateThrowEvent linkThrowEvent = linkThrowEventEntry.getValue();
+					final String throwEventName = linkThrowEvent.getName();
+					if (throwEventName.equals(intermediateCatchEvent.getName()))
+						linkThrowEvent.setCatchEvent(new CastReference<>(new NamedReference<>(elements, intermediateCatchEvent.getId()), IntermediateCatchEvent.class));
+				}
+			}
+		}
+	}
+	
 	@Override
 	protected void loadData(final Node node) {
 		if (readElementDefinitions(node)) {
 			assignSequenceFlowsToFlowNodes();
 			assignMessageFlowsToFlowNodes();
 			assignEventsToEventBasedGateway();
+			assignLinkEvents();
 		} else {
 			LOG.error("schema doesn''t contains definitions");
 		}

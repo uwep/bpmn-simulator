@@ -18,11 +18,39 @@
  */
 package com.googlecode.bpmn_simulator.bpmn.model.core.common.events;
 
+import com.googlecode.bpmn_simulator.animation.ref.Reference;
+import com.googlecode.bpmn_simulator.animation.token.Token;
+import com.googlecode.bpmn_simulator.bpmn.model.collaboration.MessageFlow;
+import com.googlecode.bpmn_simulator.bpmn.model.core.common.Message;
+
 public final class IntermediateThrowEvent
 		extends AbstractThrowEvent {
 
 	public IntermediateThrowEvent(final String id, final String name) {
 		super(id, name);
+	}
+
+	public Reference<IntermediateCatchEvent> getCatchEvent() {
+		return catchEvent;
+	}
+
+	public void setCatchEvent(Reference<IntermediateCatchEvent> catchEvent) {
+		this.catchEvent = catchEvent;
+	}
+
+	private Reference<IntermediateCatchEvent> catchEvent;
+	
+	@Override
+	protected void forwardToken(Token token) {
+		if (this.getEventDefinition() != null && this.getEventDefinition() instanceof LinkEventDefinition) {
+			if (catchEvent != null && catchEvent.hasReference()) {
+				token.getInstance().createNewToken(catchEvent.getReferenced(), this);
+//				token.remove();
+			} else			
+				super.forwardToken(token);
+		} else			
+			super.forwardToken(token);
+		
 	}
 
 }

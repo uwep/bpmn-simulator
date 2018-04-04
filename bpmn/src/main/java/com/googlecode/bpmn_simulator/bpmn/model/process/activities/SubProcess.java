@@ -82,19 +82,19 @@ public class SubProcess
 		return elements;
 	}
 
-//	@Override
-//	public void tokenEnter(final Token token) {
-//		final Instance instance = token.getInstance().addNewChildInstance(this);
-//		instance.addListener(this);
-//		for (final FlowElement element : getInstantiationElements()) {
-//			token.copyTo(element, instance);
-//		}
-//		token.remove();
-//	}
-//
-//	@Override
-//	public void tokenExit(final Token token) {
-//	}
+	@Override
+	public void tokenEnter(final Token token) {
+		final Instance instance = token.getInstance().addNewChildInstance(this);
+		instance.addListener(this);
+		for (final FlowElement element : getInstantiationElements()) {
+			token.copyTo(element, instance);
+		}
+		token.remove();
+	}
+
+	@Override
+	public void tokenExit(final Token token) {
+	}
 
 	@Override
 	public void instanceRemove(final Instance activityInstance) {

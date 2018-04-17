@@ -28,6 +28,7 @@ public final class ReceiveTask
 		implements InstantiateElement {
 
 	private boolean instantiate;
+	
 
 	public ReceiveTask(final String id, final String name,
 			final boolean isForCompensation, final boolean instantiate) {
@@ -49,8 +50,13 @@ public final class ReceiveTask
 		} else {
 			Reference<MessageFlow> msgFlowRef = this.getInMessageFlow();
 			if (msgFlowRef != null && msgFlowRef.getReferenced() != null && msgFlowRef.getReferenced().containsMessage()) {
-				msgFlowRef.getReferenced().cleanMessage();
-				super.onTokenComplete(token);
+				if (this.messageReceiveDelay > 0)
+					messageReceiveDelay--;
+				else {
+					msgFlowRef.getReferenced().cleanMessage();
+					super.onTokenComplete(token);
+					messageReceiveDelay = 50;
+				}
 			}
 		}
 	}

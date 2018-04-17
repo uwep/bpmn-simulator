@@ -37,6 +37,8 @@ public abstract class AbstractFlowNode
 	private  Reference<MessageFlow> inMessageFlowRef;
 	private  Reference<MessageFlow> outMessageFlowRef;
 
+	protected int messageReceiveDelay = 50;
+
 	public AbstractFlowNode(final String id, final String name) {
 		super(id, name);
 	}

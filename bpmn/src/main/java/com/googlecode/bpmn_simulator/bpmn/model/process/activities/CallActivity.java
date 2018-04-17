@@ -18,11 +18,67 @@
  */
 package com.googlecode.bpmn_simulator.bpmn.model.process.activities;
 
+import com.googlecode.bpmn_simulator.animation.token.Instance;
+import com.googlecode.bpmn_simulator.animation.token.InstanceListener;
+import com.googlecode.bpmn_simulator.animation.token.Token;
+import com.googlecode.bpmn_simulator.bpmn.model.core.common.FlowElement;
+import com.googlecode.bpmn_simulator.bpmn.model.core.common.events.StartEvent;
+
 public final class CallActivity
-		extends AbstractAtomicActivity {
+		extends AbstractAtomicActivity 
+		implements InstanceListener {
+
 
 	public CallActivity(final String id, final String name, final boolean isForCompensation) {
 		super(id, name, isForCompensation);
 	}
+
+	private Process process = new Process("dummyId", "dummyName");
+	private boolean waitingCallable = false; 
+
+	public Process getProcess() {
+		return process;
+	}
+
+	public void setProcess(Process process) {
+		this.process = process;
+	}
+
+	@Override
+	protected void onTokenComplete(final Token token) {
+		if (this.waitingCallable == false)
+			super.onTokenComplete(token);	
+	}
+
+
+	@Override
+	public void tokenEnter(final Token token) {
+		super.tokenEnter(token);
+		FlowElement fNode = null;
+		for (final FlowElement flowElement : process.getFlowElements()) {
+			if (flowElement instanceof StartEvent) {
+				final StartEvent startEvent = (StartEvent) flowElement;
+				if (startEvent.getEventDefinition() == null) {
+					 fNode = flowElement;
+				}
+			}
+			
+		}
+		if (fNode != null) {
+			token.getInstance().createNewInstance(fNode);
+			token.getInstance().addListener(this);
+			this.waitingCallable = true;
+		}
+	}
+
+//	@Override
+//	public void tokenExit(final Token token) {
+//	}
+
+	@Override
+	public void instanceRemove(final Instance activityInstance) {
+		this.waitingCallable = false;
+	}
+
 
 }

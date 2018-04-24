@@ -331,6 +331,11 @@ public class BPMNDefinition<E extends BPMNDiagram<?>>
 	protected boolean getIsForCompensationAttribute(final Node node) {
 		return getAttributeBoolean(node, "isForCompensation"); //$NON-NLS-1$
 	}
+	
+	protected String getCalledElementAttribute(final Node node) {
+		return getAttributeString(node, "calledElement"); //$NON-NLS-1$
+	}
+
 
 	protected AssociationDirection getParameterAssociationDirection(final Node node) {
 		final String value = getAttributeString(node, "associationDirection"); //$NON-NLS-1$
@@ -724,6 +729,10 @@ public class BPMNDefinition<E extends BPMNDiagram<?>>
 			final CallActivity callActivity = new CallActivity(
 					getIdAttribute(node), getNameAttribute(node),
 					getIsForCompensationAttribute(node));
+			String calledElement = getCalledElementAttribute(node);
+			if (calledElement != null) {
+				callActivity.setProcess(new Process(null, calledElement));
+			}
 			readChildrenOfActivity(node, callActivity);
 			registerElement(callActivity);
 			return true;
@@ -1324,6 +1333,20 @@ public class BPMNDefinition<E extends BPMNDiagram<?>>
 		}
 	}
 	
+	private void assignCallActivityToProcess() {
+		final Map<String, CallActivity> callActivitys = elements.getElementsByClass(CallActivity.class);
+		for (final Entry<String, CallActivity> element : callActivitys.entrySet()) {
+			CallActivity callActivity = element.getValue();
+			Process process = callActivity.getProcess();
+			if (process != null) {
+				process = elements.getElement(process.getName(), Process.class);
+				if (process != null)
+					callActivity.setProcess(process);
+			}
+		}
+
+	}
+	
 	@Override
 	protected void loadData(final Node node) {
 		if (readElementDefinitions(node)) {
@@ -1331,6 +1354,7 @@ public class BPMNDefinition<E extends BPMNDiagram<?>>
 			assignMessageFlowsToFlowNodes();
 			assignEventsToEventBasedGateway();
 			assignLinkEvents();
+			assignCallActivityToProcess();
 		} else {
 			LOG.error("schema doesn''t contains definitions");
 		}

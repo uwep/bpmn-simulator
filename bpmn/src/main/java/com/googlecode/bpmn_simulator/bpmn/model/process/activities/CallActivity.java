@@ -18,6 +18,8 @@
  */
 package com.googlecode.bpmn_simulator.bpmn.model.process.activities;
 
+import java.awt.Color;
+
 import com.googlecode.bpmn_simulator.animation.token.Instance;
 import com.googlecode.bpmn_simulator.animation.token.InstanceListener;
 import com.googlecode.bpmn_simulator.animation.token.Token;
@@ -29,11 +31,17 @@ public final class CallActivity
 		implements InstanceListener {
 
 
+	@Override
+	protected void onTokenAction(Token token) {
+		
+		super.onTokenAction(token);
+	}
+
 	public CallActivity(final String id, final String name, final boolean isForCompensation) {
 		super(id, name, isForCompensation);
 	}
 
-	private Process process = new Process("dummyId", "dummyName");
+	private Process process = null;
 	private boolean waitingCallable = false; 
 
 	public Process getProcess() {
@@ -54,20 +62,22 @@ public final class CallActivity
 	@Override
 	public void tokenEnter(final Token token) {
 		super.tokenEnter(token);
-		FlowElement fNode = null;
-		for (final FlowElement flowElement : process.getFlowElements()) {
-			if (flowElement instanceof StartEvent) {
-				final StartEvent startEvent = (StartEvent) flowElement;
-				if (startEvent.getEventDefinition() == null) {
-					 fNode = flowElement;
+		if (process != null) {
+			FlowElement fNode = null;
+			for (final FlowElement flowElement : process.getFlowElements()) {
+				if (flowElement instanceof StartEvent) {
+					final StartEvent startEvent = (StartEvent) flowElement;
+					if (startEvent.getEventDefinition() == null) {
+						 fNode = flowElement;
+					}
 				}
+				
 			}
-			
-		}
-		if (fNode != null) {
-			token.getInstance().createNewInstance(fNode);
-			token.getInstance().addListener(this);
-			this.waitingCallable = true;
+			if (fNode != null) {
+				Token newToken = token.getInstance().createNewInstance(fNode);
+				newToken.getInstance().addListener(this);
+				this.waitingCallable = true;
+			}
 		}
 	}
 

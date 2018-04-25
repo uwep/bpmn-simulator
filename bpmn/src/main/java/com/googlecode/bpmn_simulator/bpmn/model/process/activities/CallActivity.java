@@ -18,7 +18,6 @@
  */
 package com.googlecode.bpmn_simulator.bpmn.model.process.activities;
 
-import java.awt.Color;
 
 import com.googlecode.bpmn_simulator.animation.token.Instance;
 import com.googlecode.bpmn_simulator.animation.token.InstanceListener;
@@ -43,10 +42,15 @@ public final class CallActivity
 
 	private Process process = null;
 	private boolean waitingCallable = false;
-	private Color newTokenColor; 
 
 	public boolean isWaitingCallable() {
 		return waitingCallable;
+	}
+	
+	private Instance calledInstance = null;
+
+	public Instance getCalledInstance() {
+		return calledInstance;
 	}
 
 	public Process getProcess() {
@@ -80,7 +84,8 @@ public final class CallActivity
 			}
 			if (fNode != null) {
 				Token newToken = token.getInstance().createNewInstance(fNode);
-				newToken.getInstance().addListener(this);
+				calledInstance = newToken.getInstance();
+				calledInstance.addListener(this);
 				this.waitingCallable = true;
 			}
 		}

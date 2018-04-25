@@ -42,7 +42,12 @@ public final class CallActivity
 	}
 
 	private Process process = null;
-	private boolean waitingCallable = false; 
+	private boolean waitingCallable = false;
+	private Color newTokenColor; 
+
+	public boolean isWaitingCallable() {
+		return waitingCallable;
+	}
 
 	public Process getProcess() {
 		return process;

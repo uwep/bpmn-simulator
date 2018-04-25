@@ -18,12 +18,20 @@
  */
 package com.googlecode.bpmn_simulator.bpmn.swing.model.process.activities;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Stroke;
+
+import com.googlecode.bpmn_simulator.animation.element.visual.Bounds;
 import com.googlecode.bpmn_simulator.bpmn.model.process.activities.CallActivity;
+import com.googlecode.bpmn_simulator.bpmn.swing.di.Appearance;
 
 @SuppressWarnings("serial")
 public class CallActivityShape
 		extends AbstractActivityShape<CallActivity> {
+
+//	private Color currentColor = Color.WHITE;
+	
 
 	public CallActivityShape(final CallActivity element) {
 		super(element);
@@ -33,6 +41,17 @@ public class CallActivityShape
 	@Override
 	protected Stroke getStroke() {
 		return CALL_STROKE;
+	}
+	
+	@Override
+	protected void paintElementBackground(final Graphics2D g) {
+		if (this.getLogicalElement().isWaitingCallable()) {
+//			currentColor = this.getBackgroundColor();
+//			this.setBackground(Color.GREEN);
+			g.setPaint(new Color(164, 255, 164));
+			getPresentation().fillRoundRect(g, getInnerBoundsRelative(), Appearance.getDefault().getArcSize());
+		} else
+			super.paintElementBackground(g);
 	}
 
 }

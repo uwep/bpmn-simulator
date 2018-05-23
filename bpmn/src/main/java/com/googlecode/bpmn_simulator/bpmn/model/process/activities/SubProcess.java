@@ -84,12 +84,17 @@ public class SubProcess
 
 	@Override
 	public void tokenEnter(final Token token) {
-		final Instance instance = token.getInstance().addNewChildInstance(this);
-		instance.addListener(this);
-		for (final FlowElement element : getInstantiationElements()) {
-			token.copyTo(element, instance);
+		if (!getInstantiationElements().isEmpty()) {
+			final Instance instance = token.getInstance().addNewChildInstance(this);
+			instance.addListener(this);
+			for (final FlowElement element : getInstantiationElements()) {
+				token.copyTo(element, instance);
+			}
+			token.remove();
+		} else {
+//			super.tokenEnter(token);
+//			super.forwardToken(token);
 		}
-		token.remove();
 	}
 
 	@Override

@@ -173,15 +173,15 @@ public class BPMNDefinition<E extends BPMNDiagram<?>>
 			for (final FlowElement flowElement : process.getFlowElements()) {
 				if (flowElement instanceof StartEvent) {
 					instantiatingElements.add(flowElement);
-				}
+				} else {
 				// UweP 2017
-//				if (flowElement instanceof IntermediateCatchEvent) {
-//					if (((IntermediateCatchEvent)flowElement).getEventDefinition() instanceof LinkEventDefinition) {			
-//						instantiatingElements.add(flowElement);
-//						((IntermediateCatchEvent)flowElement).setCatched(true);
-//					}
-//				}
-				
+					if (flowElement instanceof IntermediateCatchEvent) {
+						if (((IntermediateCatchEvent)flowElement).getEventDefinition() instanceof LinkEventDefinition) {			
+							instantiatingElements.add(flowElement);
+							((IntermediateCatchEvent)flowElement).setCatched(true);
+						}
+					}
+				}
 			}
 		}
 		return instantiatingElements;

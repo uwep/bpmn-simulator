@@ -15,7 +15,9 @@
 
 	<properties>
 		<mainClass>com.googlecode.bpmn_simulator.gui.BPMNSimulatorApplication</mainClass>
-	</properties>
+		<maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+    		<buildNumber>${maven.build.timestamp}</buildNumber>
+    	</properties>
 
 	<dependencies>
 		<dependency>
@@ -64,6 +66,7 @@
 					</execution>
 				</executions>
 				<configuration>
+				   	<finalName>BPMN Token Animation-${buildNumber}</finalName>
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>

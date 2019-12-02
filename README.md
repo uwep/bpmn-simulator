@@ -1,5 +1,6 @@
 # Bpmn Simulator
-# or better BPMN Animationstool
+or better 
+# BPMN Animationstool
 
 A graphical animation tool for BPMN 2.0 models
 

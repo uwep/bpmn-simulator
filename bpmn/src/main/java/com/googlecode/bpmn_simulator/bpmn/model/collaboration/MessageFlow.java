@@ -26,6 +26,7 @@ import com.googlecode.bpmn_simulator.bpmn.model.core.common.FlowNode;
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.Message;
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.AbstractFlowNode;
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.events.BoundaryEvent;
+import com.googlecode.bpmn_simulator.bpmn.model.core.common.events.IntermediateCatchEvent;
 import com.googlecode.bpmn_simulator.bpmn.model.core.common.events.StartEvent;
 import com.googlecode.bpmn_simulator.bpmn.model.core.foundation.AbstractBaseElementNamed;
 
@@ -85,9 +86,11 @@ public class MessageFlow
 			FlowNode fNode = targetRef.getReferenced();
 			if (fNode instanceof StartEvent && token != null)
 //			token.getInstance().getParentContainer().addNewChildInstance(null).createNewToken(fNode, null);
-			token.getInstance().createNewInstance(fNode);
+				token.getInstance().createNewInstance(fNode);
 			if (fNode instanceof BoundaryEvent)
 				((BoundaryEvent)fNode).setCatched(true);
+			if (fNode instanceof IntermediateCatchEvent)
+				((IntermediateCatchEvent)fNode).setCatched(true);
 		}
 	}
 

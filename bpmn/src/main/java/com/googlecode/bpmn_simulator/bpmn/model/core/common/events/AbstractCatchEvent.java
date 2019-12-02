@@ -43,12 +43,13 @@ abstract class AbstractCatchEvent
 	protected void onTokenComplete(Token token) {
 		Reference<MessageFlow> msgFlowRef = this.getInMessageFlow();
 		if (msgFlowRef != null && msgFlowRef.getReferenced() != null && msgFlowRef.getReferenced().containsMessage()) {
-			if (messageReceiveDelay > 0)
+			if (messageReceiveDelay > 0) {
 				messageReceiveDelay--;
+			}
 			else {
 				msgFlowRef.getReferenced().cleanMessage();
-				setCatched(false);
 				super.onTokenComplete(token);
+				setCatched(false);
 				messageReceiveDelay = 50;
 			}
 		} else

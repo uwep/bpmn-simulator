@@ -1,4 +1,6 @@
-# bpmn-simulator
+# Bpmn Simulator
+# or better BPMN Animationstool
+
 A graphical animation tool for BPMN 2.0 models
 
 Refactored implementation of https://github.com/steschw/bpmn-simulator including message flow, event based gateways and many more
